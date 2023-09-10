@@ -1,5 +1,5 @@
 ## About
-Temporary Writings
+Temporary Writing
 
 
 ## Postface
