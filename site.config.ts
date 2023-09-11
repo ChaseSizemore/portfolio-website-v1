@@ -54,20 +54,21 @@ export default siteConfig({
   navigationStyle: 'custom',
   navigationLinks: [
     {
-      title: 'About',
-      pageId: 'b62883615cf54bd6a5de2930560ffb0f'
-    },
-    {
-      title: 'Contact',
-      pageId: '08be544ffb3747c5a018421bcda57847'
-    },
-    {
       title: 'Projects',
       pageId: 'b04f552c2fd046e1b880b9ddeb847950'
     },
     {
       title: 'Articles',
       pageId: 'ed75dc61bfd640799c7567db68a3d69a'
+    },
+    {
+      title: 'About',
+      pageId: 'b62883615cf54bd6a5de2930560ffb0f'
+    },
+    {
+      title: 'Contact',
+      pageId: '08be544ffb3747c5a018421bcda57847'
     }
+
   ]
 })
