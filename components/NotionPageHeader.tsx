@@ -10,9 +10,10 @@ import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
+import { set } from 'date-fns'
 
 const ToggleThemeButton = () => {
-  const [hasMounted, setHasMounted] = React.useState(false)
+  const [hasMounted, setHasMounted] = React.useState(true)
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
   React.useEffect(() => {
@@ -38,51 +39,76 @@ export const NotionPageHeader: React.FC<{
 }> = ({ block }) => {
   const { components, mapPageUrl } = useNotionContext()
 
+  const [isNarrowScreen, setIsNarrowScreen] = React.useState(true)
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsNarrowScreen(window.innerWidth < 520);
+    }, 1);
+  }, []);
+  
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsNarrowScreen(window.innerWidth < 520)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   if (navigationStyle === 'default') {
     return <Header block={block} />
   }
 
   return (
     <header className='notion-header'>
-      <div className='notion-nav-header'>
-        <Breadcrumbs block={block} rootOnly={true} />
+{isNarrowScreen ? (
+  <div className='notion-nav-header'>
+<Breadcrumbs block={block} rootOnly={true} />
+<ToggleThemeButton />
+</div>
+): (      <div className='notion-nav-header'>
+<Breadcrumbs block={block} rootOnly={true} />
 
-        <div className='notion-nav-header-rhs breadcrumbs'>
-          {navigationLinks
-            ?.map((link, index) => {
-              if (!link.pageId && !link.url) {
-                return null
-              }
+<div className='notion-nav-header-rhs breadcrumbs'>
+  {navigationLinks
+    ?.map((link, index) => {
+      if (!link.pageId && !link.url) {
+        return null
+      }
 
-              if (link.pageId) {
-                return (
-                  <components.PageLink
-                    href={mapPageUrl(link.pageId)}
-                    key={index}
-                    className={cs(styles.navLink, 'breadcrumb', 'button')}
-                  >
-                    {link.title}
-                  </components.PageLink>
-                )
-              } else {
-                return (
-                  <components.Link
-                    href={link.url}
-                    key={index}
-                    className={cs(styles.navLink, 'breadcrumb', 'button')}
-                  >
-                    {link.title}
-                  </components.Link>
-                )
-              }
-            })
-            .filter(Boolean)}
+      if (link.pageId) {
+        return (
+          <components.PageLink
+            href={mapPageUrl(link.pageId)}
+            key={index}
+            className={cs(styles.navLink, 'breadcrumb', 'button')}
+          >
+            {link.title}
+          </components.PageLink>
+        )
+      } else {
+        return (
+          <components.Link
+            href={link.url}
+            key={index}
+            className={cs(styles.navLink, 'breadcrumb', 'button')}
+          >
+            {link.title}
+          </components.Link>
+        )
+      }
+    })
+    .filter(Boolean)}
 
-          <ToggleThemeButton />
-
-          {/* {isSearchEnabled && <Search block={block} title={null} />} */}
-        </div>
-      </div>
+  <ToggleThemeButton />
+  {/* {isSearchEnabled && <Search block={block} title={null} />} */}
+</div>
+</div>)}
     </header>
   )
 }
+
+
