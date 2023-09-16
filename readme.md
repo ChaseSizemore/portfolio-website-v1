@@ -1,5 +1,5 @@
 ## About
-Welcome to my portfolio website powered by Notion!
+Welcome to my portfolio website powered by Notion
 
 
 ## Getting Started
