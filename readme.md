@@ -1,6 +1,5 @@
 ## About
-Welcome to my portfolio website powered by Notion!
-
+Welcome to my portfolio website powered by Notion
 
 ## Getting Started
 If you want to get started with this project, you can clone this repository and run the following commands:
