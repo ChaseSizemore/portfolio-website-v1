@@ -10,7 +10,7 @@ export default siteConfig({
 
   // basic site info (required)
   name: 'Chase Sizemore Portfolio',
-  domain: 'nextjs-notion-starter-kit.transitivebullsh.it',
+  domain: 'chasesizemore.dev',
   author: 'Chase Sizemore',
 
   // open graph metadata (optional)
